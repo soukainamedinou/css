@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - CornicheCuisine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            background-color: #fcf9f4;
+            color: #2c1810;
+            line-height: 1.6;
+        }
+
+        :root {
+            --or: #D4AF37;
+            --or-clair: #F1E5C9;
+            --or-fonce: #AA8C2E;
+            --marron-profond: #2C1810;
+            --taupe: #8B7E6E;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--marron-profond) 0%, #3a241b 100%);
+            color: white;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--or);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .logo span {
+            color: var(--or);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--or);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: var(--or);
+        }
+
+        .page-header {
+            background: linear-gradient(rgba(44, 24, 16, 0.8), rgba(44, 24, 16, 0.8)), 
+                        url('https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 span {
+            color: var(--or);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--or-clair);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 50px 0 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-link {
+            background: transparent;
+            border: 2px solid var(--or);
+            color: var(--marron-profond);
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .category-link:hover,
+        .category-link.active {
+            background: var(--or);
+            color: var(--marron-profond);
+            transform: translateY(-2px);
+        }
+
+        .gallery-section {
+            padding: 40px 0 60px;
+            scroll-margin-top: 100px; 
+        }
+
+        .gallery-section:nth-child(even) {
+            background-color: #fff9f0;
+        }
+
+        .section-subtitle {
+            font-size: 2rem;
+            color: var(--marron-profond);
+            margin-bottom: 40px;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-subtitle span {
+            color: var(--or);
+        }
+
+        .section-subtitle::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--or);
+            margin-top: 10px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            height: 300px;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(212, 175, 55, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            display: block;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: -70px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(44, 24, 16, 0.9), transparent);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            transition: bottom 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--or);
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: #1a110c;
+            color: #e0cbb8;
+            padding: 70px 0 30px;
+            border-top: 3px solid var(--or);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+        }
+
+        .footer-col h4 {
+            color: var(--or);
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #d4bcab;
+            text-decoration: none;
+            line-height: 2.2;
+            display: block;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--or);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            font-size: 1.8rem;
+            color: #e8b384;
+        }
+
+        .social-links a:hover {
+            color: var(--or);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #4a3526;
+            font-size: 0.9rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #a88f7a;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">
+            <i class="fas fa-umbrella-beach"></i> <span>Corniche</span>Cuisine
+        </div>
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="about.html">Équipe</a></li>
+            <li><a href="gallery.html" class="active">Galerie</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="page-header">
+    <h1>Notre <span>Galerie</span></h1>
+    <p>Découvrez l'ambiance, les plats et les moments magiques de CornicheCuisine</p>
+</div>
+
+<div class="container">
+    <div class="category-nav">
+        <a href="#tous" class="category-link active">Tous</a>
+        <a href="#plats" class="category-link">Plats</a>
+        <a href="#ambiance" class="category-link">Ambiance</a>
+        <a href="#terrasse" class="category-link">Terrasse</a>
+        <a href="#evenements" class="category-link">Événements</a>
+    </div>
+</div>
+
+<section id="tous" class="gallery-section">
+    <div class="container">
+        <h2 class="section-subtitle">Toutes nos <span>photos</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\Tajine d'Agneau.jpeg" alt="Tajine">
+                <div class="gallery-overlay">
+                    <h3>Tajine d'Agneau</h3>
+                    <p>Notre spécialité maison</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\salle.webp" alt="Salle">
+                <div class="gallery-overlay">
+                    <h3>Salle principale</h3>
+                    <p>Ambiance chaleureuse</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\coscos.jpeg" alt="Couscous">
+                <div class="gallery-overlay">
+                    <h3>Couscous Royal</h3>
+                    <p>Best-seller du vendredi</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\terrasse.jpeg" alt="Terrasse">
+                <div class="gallery-overlay">
+                    <h3>Terrasse panoramique</h3>
+                    <p>Vue sur l'Atlantique</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\pastila.jpeg" alt="Pastilla">
+                <div class="gallery-overlay">
+                    <h3>Pastilla aux Fruits de Mer</h3>
+                    <p>Notre coup de cœur</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\couchesoleil.jpeg" alt="Coucher de soleil">
+                <div class="gallery-overlay">
+                    <h3>Coucher de soleil</h3>
+                    <p>Moment magique</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\the.jpeg" alt="Thé">
+                <div class="gallery-overlay">
+                    <h3>Rituel du Thé</h3>
+                    <p>Tradition marocaine</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\soiree.jpeg" alt="Événement">
+                <div class="gallery-overlay">
+                    <h3>Soirée privée</h3>
+                    <p>Mariages et réceptions</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\patisserie.png" alt="Pâtisseries">
+                <div class="gallery-overlay">
+                    <h3>Pâtisseries orientales</h3>
+                    <p>Créations sucrées</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="plats" class="gallery-section">
+    <div class="container">
+        <h2 class="section-subtitle">Nos <span>plats</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\Tajine d'Agneau.jpeg" alt="Tajine">
+                <div class="gallery-overlay">
+                    <h3>Tajine d'Agneau</h3>
+                    <p>Notre spécialité maison</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\coscos.jpeg" alt="Couscous">
+                <div class="gallery-overlay">
+                    <h3>Couscous Royal</h3>
+                    <p>Best-seller du vendredi</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\pastila.jpeg" alt="Pastilla">
+                <div class="gallery-overlay">
+                    <h3>Pastilla aux Fruits de Mer</h3>
+                    <p>Notre coup de cœur</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\patisserie.png" alt="Pâtisseries">
+                <div class="gallery-overlay">
+                    <h3>Pâtisseries orientales</h3>
+                    <p>Créations sucrées</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="ambiance" class="gallery-section">
+    <div class="container">
+        <h2 class="section-subtitle">Notre <span>ambiance</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\salle.webp" alt="Salle">
+                <div class="gallery-overlay">
+                    <h3>Salle principale</h3>
+                    <p>Ambiance chaleureuse et élégante</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\the.jpeg" alt="Thé">
+                <div class="gallery-overlay">
+                    <h3>Rituel du Thé</h3>
+                    <p>Notre tradition marocaine</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="terrasse" class="gallery-section">
+    <div class="container">
+        <h2 class="section-subtitle">Notre <span>terrasse</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\terrasse.jpeg" alt="Terrasse">
+                <div class="gallery-overlay">
+                    <h3>Terrasse panoramique</h3>
+                    <p>Vue imprenable sur l'Atlantique</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\couchesoleil.jpeg" alt="Coucher de soleil">
+                <div class="gallery-overlay">
+                    <h3>Coucher de soleil</h3>
+                    <p>Le moment magique sur la corniche</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="evenements" class="gallery-section">
+    <div class="container">
+        <h2 class="section-subtitle">Nos <span>événements</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="C:\Users\SOUKAINA\Desktop\Tps_Html\site\images\soiree.jpeg" alt="Événement">
+                <div class="gallery-overlay">
+                    <h3>Soirée privée</h3>
+                    <p>Mariages et réceptions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <h4>CornicheCuisine</h4>
+            <p>Restaurant gastronomique marocain sur la corniche de Casablanca. Depuis 2010, l'excellence au service de votre plaisir.</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener" ><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/?locale=fr_FR" target="_blank" rel="noopener" ><i class="fab fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/fr/" target="_blank" rel="noopener" ><i class="fab fa-tiktok"></i></a>
+                
+            </div>
+        </div>
+        
+        <div class="footer-col">
+            <h4>Liens</h4>
+            <a href="../index.html">Accueil</a>
+            <a href="about.html">Équipe</a>
+            <a href="gallery.html">Galerie</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <p><i class="fas fa-phone"></i> 05 22 99 88 77</p>
+            <p><i class="fas fa-envelope"></i> contact@cornichecuisine.ma</p>
+            <p><i class="fas fa-map-pin"></i> 45, Bd de la Corniche, Casablanca</p>
+        </div>
+        
+        <div class="footer-col">
+            <h4>Horaires</h4>
+            <p>Mardi - Dimanche</p>
+            <p>12h00 - 15h00</p>
+            <p>19h00 - 23h00</p>
+            <p>Fermé lundi</p>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <p>© 2026 CornicheCuisine - Maison d'exception - Tous droits réservés</p>
+        <p style="margin-top: 5px;">📍 Corniche de Casablanca | 📞 05 22 99 88 77</p>
+    </div>
+</footer>
+
+</body>
+</html>

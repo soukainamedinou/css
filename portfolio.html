@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon portfolio · Soukaina MEDINOU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #faf7f2; 
+            color: #2e3b3b;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        header {
+            background-color: #c1a59a;  
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            background-color: transparent;
+            padding: 0.4rem 0.8rem;
+            border-radius: 40px;
+            transition: all 0.2s;
+        }
+
+        nav ul li a:hover {
+            background-color: #dbbcb0;
+            color: #2d2d2d;
+        }
+
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+            color: #794e43;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            border-bottom: 3px solid #dbbcb0;
+            padding-bottom: 0.3rem;
+        }
+
+        main {
+            margin-top: 100px;
+        }
+
+        #accueil {
+            max-width: 1100px;
+            margin: 2.5rem auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            background-color: #ffffffde;
+            border-radius: 40px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 120px;
+        }
+
+        #accueil img {
+            width: 320px;
+            height: 320px;
+            object-fit: cover;          
+            border-radius: 50%;       
+            transition: transform 0.2s;
+        }
+
+        #accueil img:hover {
+            transform: scale(1.02);
+        }
+
+        .accueil-texte {
+            max-width: 550px;
+            text-align: justify;
+        }
+
+        .accueil-texte h1 {
+            font-size: 2.4rem;
+            color: #794e43;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .accueil-texte .sous-titre {
+            font-size: 1.2rem;
+            color: #966b61;
+            margin-bottom: 1rem;
+            border-left: 5px solid #c1a59a;
+            padding-left: 1rem;
+        }
+
+        .accueil-texte p {
+            margin-bottom: 1rem;
+            color: #3f4a4a;
+        }
+
+        #competences {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            margin-top: 120px;
+        }
+
+        .cartes-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+        }
+
+        .carte {
+            background-color: white;
+            width: 280px;
+            padding: 1.5rem 1.2rem;
+            border-radius: 28px;
+            box-shadow: 0 6px 14px rgba(150, 107, 97, 0.08);
+            transition: 0.15s;
+            border: 1px solid #f0e2da;
+        }
+
+        .carte:hover {
+            box-shadow: 0 10px 20px rgba(121, 78, 67, 0.12);
+            transform: translateY(-5px);
+        }
+
+        .carte h3 {
+            color: #794e43;
+            font-weight: 600;
+            font-size: 1.3rem;
+            border-bottom: 2px dotted #dbbcb0;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1rem;
+            text-align: left;
+            border-bottom-style: dotted;
+        }
+
+        .carte ul, .carte ol {
+            padding-left: 1.4rem;
+            color: #3f4a4a;
+        }
+
+        .carte li {
+            margin-bottom: 0.6rem;
+        }
+
+        #experiences {
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            margin-top: 120px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 1rem 1.2rem;
+            text-align: center;
+            border-bottom: 1px solid #eeded6;
+        }
+
+        thead tr {
+            background-color: #c1a59a;
+            color: white;
+            font-weight: 600;
+        }
+
+        .section-titre {
+            background-color: #dbbcb0 !important;
+            color: #2d2d2d;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-style: italic;  
+        }
+
+        
+        tbody tr:hover {
+            background-color: #fbf4ef;
+        }
+
+        #contact {
+            text-align: center; 
+            justify-content: center;
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            margin-top: 120px;
+        }
+        
+        .contact-simple {
+            background: white;
+            border-radius: 30px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(121, 78, 67, 0.1);
+            border: 1px solid #f0e2da;
+        }
+
+        .coordonees {
+            margin-bottom: 2rem;
+        }
+
+        .coordonees p {
+            margin: 1rem 0;
+            color: #3f4a4a;
+            font-size: 1.1rem;
+        }
+
+        .coordonees i {
+            color: #794e43;
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .liens-sociaux {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .lien {
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: 0.2s;
+            border: 1px solid #f0e2da;
+        }
+
+        .lien.linkedin {
+            color: #0077b5;
+            background: #f0f0f0;
+        }
+
+        .lien.email {
+            color: #ea4335;
+            background: #f0f0f0;
+        }
+
+        .lien:hover {
+            background: #c1a59a;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: #c1a59a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-radius: 40px 40px 0 0;
+        }
+
+        footer p {
+            opacity: 0.9;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#competences">Compétences</a></li>
+                <li><a href="#experiences">Expériences</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="accueil">
+            <img src="C:\Users\SOUKAINA\Downloads\img_pro2.png" alt="am photo de profil">
+            <div class="accueil-texte">
+                <h1>Salut, moi c'est Soukaina</h1>
+                <div class="sous-titre">Étudiante · Big Data & Cloud Computing</div>
+                <p>Passionnée par le Big Data et le Cloud Computing, je suis actuellement en première année 
+                   de cycle d'ingénieur à l'ENSET, après un DUT en Génie Informatique. J'ai eu l'occasion 
+                   de développer plusieurs projets concrets, comme une plateforme de gestion de rendez-vous 
+                   médicaux ou une application de don de sang, qui m'ont permis d'acquérir des compétences 
+                   pratiques en développement web et en bases de données. Rigoureuse, curieuse et appréciant 
+                   le travail en équipe, je souhaite aujourd'hui mettre mes compétences au service de votre 
+                   entreprise dans le cadre d'un stage. Rejoindre votre structure serait pour moi une belle 
+                   opportunité d'apprendre et de contribuer à vos projets.</p>
+            </div>
+        </section>
+
+        <section id="competences">
+            <h2>Compétences techniques</h2>
+            <div class="cartes-grid">
+                <div class="carte">
+                    <h3>Langages de programmation</h3>
+                    <ul>
+                        <li>C</li>
+                        <li>Python</li>
+                        <li>Java</li>
+                    </ul>
+                </div>
+                <div class="carte">
+                    <h3>Développement Web</h3>
+                    <ul>
+                        <li>HTML & CSS</li>
+                        <li>JavaScript</li>
+                        <li>Django</li>
+                        <li>PHP</li>
+                    </ul>
+                </div>
+                <div class="carte">
+                    <h3>Bases de données</h3>
+                    <ul>
+                        <li>SQL</li>
+                        <li>MySQL</li>
+                        <li>Power BI</li>
+                    </ul>
+                </div>
+                <div class="carte">
+                    <h3>Systèmes</h3>
+                    <ul>
+                        <li>Linux</li>
+                        <li>Windows</li>
+                    </ul>
+                </div>
+                <div class="carte">
+                    <h3>Réseau & sécurité</h3>
+                    <ul>
+                        <li>Administration réseau</li>
+                        <li>Sécurité réseau</li>
+                    </ul>
+                </div>
+                <div class="carte">
+                    <h3>Langues</h3>
+                    <ol style="list-style-type: decimal;">
+                        <li>Français</li>
+                        <li>Anglais</li>
+                        <li>Arabe</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiences">
+            <h2>Formations & Stages</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Période</th>
+                        <th>Intitulé</th>
+                        <th>Établissement / entreprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="section-titre">
+                        <td rowspan="4">FORMATIONS</td></tr>
+                    <tr>   <td>2025 – aujourd'hui</td>
+                        <td>Cycle ingénieur Big Data & Cloud</td>
+                        <td>Enset</td>
+                    </tr>
+                    <tr>
+                        <td>2023 – 2025</td>
+                        <td>DUT (informatique)</td>
+                        <td>EST Casablanca</td>
+                    </tr>
+                    <tr>
+                        <td>2023</td>
+                        <td>Baccalauréat</td>
+                        <td>Lycée Mansour Eddahbi</td>
+                    </tr>
+                    
+                    <tr class="section-titre">
+                     <td rowspan="4">STAGES</td></tr>  
+                     <tr>   <td>2025</td>
+                        <td>Plateforme web – don de sang (UH2C)</td>
+                        <td>Bibliothèque universitaire</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>Télémédecine & analyse prédictive (IA)</td>
+                        <td>EST Casablanca</td>
+                    </tr>
+                    <tr>
+                        <td>2024</td>
+                        <td>Stage d'observation</td>
+                        <td>OCP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-simple">
+                <div class="coordonees">
+                    <p><i class="fa-solid fa-location-dot"></i> Casablanca, Maroc</p>
+                    <p><i class="fa-solid fa-phone"></i> +212 670-389633</p>
+                </div>
+            
+                <div class="liens-sociaux">
+                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="lien linkedin">
+                        <i class="fa-brands fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="mailto:soukainamedinou22@email.com" target="_blank" rel="noopener" class="lien email">
+                        <i class="fa-solid fa-envelope"></i> Email
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Soukaina MEDINOU</p>
+        <p>© 2025 Tous droits réservés</p>
+    </footer>
+</body>
+</html>
